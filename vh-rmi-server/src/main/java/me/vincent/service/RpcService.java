@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.vincent.registry.IRegistry;
+import me.vincent.transport.NioTcpService;
+import me.vincent.transport.TCPService;
 import me.vincent.utils.ThreadUtil;
 
 public class RpcService {
@@ -17,7 +19,7 @@ public class RpcService {
 	public RpcService(IRegistry r, String s){
 		registry = r;
 		serviceAddress = s;
-		ThreadUtil.run(new TCPService(s));
+		ThreadUtil.run(new NioTcpService(s));
 	}
 	
 	public void publish(Object service, String serviceName){
