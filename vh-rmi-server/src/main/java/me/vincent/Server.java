@@ -16,10 +16,10 @@ public class Server {
 		InetAddress inetAddress = InetAddress.getLocalHost();
 		String port = "6366";
 		
-		String zk_addr = "10.0.0.18:2181";
+		String zk_addr = "168.61.11.221:2181";
 		
 		IRegistry registry = new RegistryImpl(zk_addr);
-		RpcService rpcService = new RpcService(registry,"10.0.0.2" + ":" + port);
+		RpcService rpcService = new RpcService(registry,"127.0.0.1" + ":" + port);
 		rpcService.publish(new PingServiceImpl(), IPingService.class.getName());
 		System.out.println(Thread.currentThread().getName() + " 主线程结束");
 	}

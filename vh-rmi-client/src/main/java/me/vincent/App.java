@@ -17,14 +17,14 @@ public class App
     {
     	
     	ILoadBalancer localLB = new RandomLoadBalancer();
-    	IRegistry registry  = new RegistryImpl("10.0.0.18:2181",localLB);
+    	IRegistry registry  = new RegistryImpl("168.61.11.221:2181",localLB);
     	
     	RpcProxyService prcPrx = new RpcProxyService(registry);
     	
-    	for(int i = 0; i< 20; i++){
+//    	for(int i = 0; i< 20; i++){
 	        IPingService is = prcPrx.clientProxy(IPingService.class);
 	        System.out.println(is.ping("ping"));
-	        Thread.sleep(100);
-    	}
+//	        Thread.sleep(100);
+//    	}
     }
 }

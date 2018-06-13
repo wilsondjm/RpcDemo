@@ -19,6 +19,8 @@ public class RpcProxyService {
 		if (null == serviceAddress || "".equalsIgnoreCase(serviceAddress)){
 			throw new RuntimeException("Fuck the service, not found in registry");
 		}
+		
+		System.out.println("Found the target service : " + serviceAddress);
 		// 使用到了动态代理。
 		return (T) Proxy.newProxyInstance(interfaceCls.getClassLoader(), new Class[] { interfaceCls },
 				new RemoteInvocationHandler(serviceAddress));

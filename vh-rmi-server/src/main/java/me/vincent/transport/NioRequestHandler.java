@@ -12,12 +12,14 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
 import me.vincent.api.RPCRequest;
+import me.vincent.api.RPCResponse;
 import me.vincent.service.RpcService;
 
 public class NioRequestHandler extends SimpleChannelHandler{
 
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e){
+		System.out.println("收到客户端请求");
 		try{
 			RPCRequest rpcRequest = (RPCRequest)e.getMessage();
 			String requestService = rpcRequest.getClassName();
@@ -34,7 +36,10 @@ public class NioRequestHandler extends SimpleChannelHandler{
 				types[i] = parameters[i].getClass();
 			}
 			Object result = service.getClass().getMethod(methodName, types).invoke(service, parameters);
-			ChannelFuture f = e.getChannel().write(result);
+			RPCResponse rs = new RPCResponse();
+			rs.setStatus(RPCResponse.status_enum.success);
+			rs.setData(result);
+			ChannelFuture f = e.getChannel().write(rs);
 			f.addListener(ChannelFutureListener.CLOSE);
 		} catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
@@ -56,6 +61,7 @@ public class NioRequestHandler extends SimpleChannelHandler{
 		}
 	}
 	
+	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e){
 		e.getCause().printStackTrace();
 		

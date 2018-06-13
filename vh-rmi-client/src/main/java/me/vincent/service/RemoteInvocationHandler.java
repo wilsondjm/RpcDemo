@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import me.vincent.api.RPCRequest;
+import me.vincent.transport.NioClientService;
 
 public class RemoteInvocationHandler implements InvocationHandler {
 	
@@ -20,10 +21,11 @@ public class RemoteInvocationHandler implements InvocationHandler {
 		rpcRequest.setClassName(method.getDeclaringClass().getName());
 		rpcRequest.setMethodName(method.getName());
 		
-		TCPTransportService s = new TCPTransportService(serviceAddress);
-		Object result = s.send(rpcRequest);
+//		TCPTransportService s = new TCPTransportService(serviceAddress);
+		NioClientService s = new NioClientService(serviceAddress);
+		s.request(rpcRequest);
 		
-		return result;
+		return "";
 	}
 
 }
