@@ -5,11 +5,11 @@ import java.net.InetAddress;
 
 import me.vincent.api.IHelloService;
 import me.vincent.api.IPingService;
-import me.vincent.registry.IRegistry;
-import me.vincent.registry.RegistryImpl;
-import me.vincent.service.HelloServiceImpl;
-import me.vincent.service.PingServiceImpl;
-import me.vincent.service.RpcService;
+import me.vincent.api.impl.HelloServiceImpl;
+import me.vincent.api.impl.PingServiceImpl;
+import me.vincent.framework.rpc.registry.IRegistry;
+import me.vincent.framework.rpc.registry.RegistryImpl;
+import me.vincent.framework.rpc.service.RpcService;
 
 public class Server {
 
