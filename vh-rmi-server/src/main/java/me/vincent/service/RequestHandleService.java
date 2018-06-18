@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import me.vincent.api.RPCRequest;
+import me.vincent.core.RPCRequest;
 
 public class RequestHandleService implements Callable<Object>{
 	

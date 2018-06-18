@@ -25,7 +25,7 @@ public class RegistryImpl implements IRegistry {
 	}
 
 	private void init() {
-		cf = CuratorFrameworkFactory.builder().connectString(connStr).sessionTimeoutMs(5000).connectionTimeoutMs(5000)
+		cf = CuratorFrameworkFactory.builder().connectString(connStr)
 				.retryPolicy(new ExponentialBackoffRetry(1000, 3)).build();
 		cf.start();
 	}

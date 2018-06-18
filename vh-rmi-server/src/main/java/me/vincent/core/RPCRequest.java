@@ -1,4 +1,4 @@
-package me.vincent.api;
+package me.vincent.core;
 
 import java.io.Serializable;
 
@@ -9,6 +9,7 @@ public class RPCRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 7023871920004681161L;
 	
+	private String syncID;
 	private String className;
 	private String methodName;
 	private Object[] args;
@@ -31,6 +32,12 @@ public class RPCRequest implements Serializable {
 	}
 	public void setArgs(Object[] args) {
 		this.args = args;
+	}
+	public String getSyncID() {
+		return syncID;
+	}
+	public void setSyncID(String requestID) {
+		this.syncID = requestID;
 	}
 	
 	

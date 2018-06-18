@@ -1,4 +1,4 @@
-package me.vincent.api;
+package me.vincent.core;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ public class RPCResponse implements Serializable{
 			success,
 			failwithErrors
 	};
-	
+	private String ackID;
 	private status_enum status;
 	private String message;
 	private Object data;
@@ -32,6 +32,12 @@ public class RPCResponse implements Serializable{
 	}
 	public void setData(Object data) {
 		this.data = data;
+	}
+	public String getAckID() {
+		return ackID;
+	}
+	public void setAckID(String ackID) {
+		this.ackID = ackID;
 	}
 	
 	

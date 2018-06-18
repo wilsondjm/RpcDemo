@@ -2,16 +2,19 @@ package me.vincent.service;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.UUID;
 
-import me.vincent.api.RPCRequest;
+import me.vincent.core.RPCRequest;
 import me.vincent.transport.NioClientService;
 
 public class RemoteInvocationHandler implements InvocationHandler {
 	
 	private String serviceAddress;
+	private NioClientService ncs;
 	
-	public RemoteInvocationHandler(String serviceAddress){
+	public RemoteInvocationHandler(NioClientService ncs, String serviceAddress){
 		this.serviceAddress = serviceAddress;
+		this.ncs = ncs;
 	}
 
 	@Override
@@ -20,12 +23,9 @@ public class RemoteInvocationHandler implements InvocationHandler {
 		rpcRequest.setArgs(args);
 		rpcRequest.setClassName(method.getDeclaringClass().getName());
 		rpcRequest.setMethodName(method.getName());
+		rpcRequest.setSyncID(UUID.randomUUID().toString());
 		
-//		TCPTransportService s = new TCPTransportService(serviceAddress);
-		NioClientService s = new NioClientService(serviceAddress);
-		s.request(rpcRequest);
-		
-		return "";
+		return ncs.requestSync(serviceAddress, rpcRequest);
 	}
 
 }

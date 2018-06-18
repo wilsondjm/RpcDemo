@@ -1,11 +1,11 @@
-package me.vincent.service;
+package me.vincent.transport;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import me.vincent.api.RPCRequest;
+import me.vincent.core.RPCRequest;
 
 public class TCPTransportService {
 

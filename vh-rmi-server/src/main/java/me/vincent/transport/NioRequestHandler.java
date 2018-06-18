@@ -11,17 +11,19 @@ import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
-import me.vincent.api.RPCRequest;
-import me.vincent.api.RPCResponse;
+import me.vincent.core.RPCRequest;
+import me.vincent.core.RPCResponse;
 import me.vincent.service.RpcService;
 
 public class NioRequestHandler extends SimpleChannelHandler{
 
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e){
-		System.out.println("收到客户端请求");
+		System.out.println(Thread.currentThread().getName() + " - 处理客户端请求");
 		try{
 			RPCRequest rpcRequest = (RPCRequest)e.getMessage();
+			String syncID = rpcRequest.getSyncID();
+			System.out.println(Thread.currentThread().getName() + " - 客户端请求ID - " + syncID);
 			String requestService = rpcRequest.getClassName();
 			Object service = RpcService.serviceMapper.get(requestService);
 			if(null == service){
@@ -37,10 +39,11 @@ public class NioRequestHandler extends SimpleChannelHandler{
 			}
 			Object result = service.getClass().getMethod(methodName, types).invoke(service, parameters);
 			RPCResponse rs = new RPCResponse();
+			rs.setAckID(syncID);
 			rs.setStatus(RPCResponse.status_enum.success);
 			rs.setData(result);
 			ChannelFuture f = e.getChannel().write(rs);
-			f.addListener(ChannelFutureListener.CLOSE);
+//			f.addListener(ChannelFutureListener.CLOSE);
 		} catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

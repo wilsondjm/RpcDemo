@@ -1,5 +1,6 @@
 package me.vincent.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,19 @@ public class RpcService {
 		ThreadUtil.run(new NioTcpService(s));
 	}
 	
-	public void publish(Object service, String serviceName){
-		registry.register(serviceName, serviceAddress);
-		serviceMapper.put(serviceName, service);
+	public void publish(Object service, Class clazz){
+		
+//		if(null == services || services.length == 0){
+//			System.out.println("No Services to publish");
+//			return;
+//		}
+		
+//		Arrays.stream(services).forEach(service -> {
+//			serviceMapper.put(service.getClass().getName(), service);
+//			registry.register(service.getClass().getName(), serviceAddress);
+//		});
+		serviceMapper.put(clazz.getName(), service);
+		registry.register(clazz.getName(), serviceAddress);
 	}
 
 }

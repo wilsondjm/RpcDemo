@@ -26,19 +26,20 @@ public class RegistryImpl implements IRegistry {
 
 	@Override
 	public void register(String serviceName, String serviceAddress) {
-		String servicePaht = ZK_REGISTRY_PATH + "/" + serviceName;
+		String servicePath = ZK_REGISTRY_PATH + "/" + serviceName;
 
 		try {
-			if (cf.checkExists().forPath(servicePaht) == null) {
-				cf.create().creatingParentContainersIfNeeded().withMode(CreateMode.PERSISTENT).forPath(servicePaht);
+			if (cf.checkExists().forPath(servicePath) == null) {
+				cf.create().creatingParentContainersIfNeeded().withMode(CreateMode.PERSISTENT).forPath(servicePath);
 			}
 
-			String addressPath = servicePaht + "/" + serviceAddress;
+			String addressPath = servicePath + "/" + serviceAddress;
 			String serviceNode = cf.create().withMode(CreateMode.EPHEMERAL).forPath(addressPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(String.format("Published %s at %s", serviceName, serviceAddress));
 	}
 
 }
