@@ -10,12 +10,12 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers;
 import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 
-public class NioTcpService implements Runnable{
+public class NioServerService implements Runnable{
 	
 	private String serviceAddress;
 	private int port;
 	
-	public NioTcpService(String serviceAddress){
+	public NioServerService(String serviceAddress){
 		this.serviceAddress = serviceAddress;
 		port = Integer.valueOf(serviceAddress.split(":")[1]);
 	}

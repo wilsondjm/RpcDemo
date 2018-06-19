@@ -7,13 +7,13 @@ import java.net.Socket;
 import me.vincent.framework.rpc.service.RequestHandleService;
 import me.vincent.utils.ThreadUtil;
 
-public class TCPService implements Runnable{
+public class TCPServerService implements Runnable{
 	
 	private int port = 6636;
 	
 	private ServerSocket serverSocket;
 	
-	public TCPService(String serviceAddress){
+	public TCPServerService(String serviceAddress){
 		String[] args = serviceAddress.split(":");
 		port = Integer.valueOf(args[1]);
 	}
